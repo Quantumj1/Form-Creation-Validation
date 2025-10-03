@@ -12,20 +12,24 @@ async function fetchUserData() {
         if (dataContainer) {
             // Clear any existing content
             dataContainer.innerHTML = '';
-            // Create a list to display user names and emails
-            const ul = document.createElement('ul');
+            // Create a list to display user names
+            const userList = document.createElement('ul');
             users.forEach(user => {
                 const li = document.createElement('li');
-                li.textContent = `${user.name} (${user.email})`;
-                ul.appendChild(li);
+                li.textContent = user.name;
+                userList.appendChild(li);
             });
-            dataContainer.appendChild(ul);
+            dataContainer.appendChild(userList);
         }
     } catch (error) {
         console.error('Error fetching user data:', error);
         if (dataContainer) {
+            dataContainer.innerHTML = '';
             dataContainer.textContent = 'Failed to load user data.';
             dataContainer.style.color = '#dc3545';
         }
     }
 }
+
+// Add event listener to fetch data when DOM is loaded
+document.addEventListener('DOMContentLoaded', fetchUserData);
